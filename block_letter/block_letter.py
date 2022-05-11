@@ -35,9 +35,7 @@ class BlockLetter:
 
   @classmethod
   def characters(klass, string):
-    characters = list(string)
-
-    return '\n'.join(map(lambda row_index: klass.__ascii_row_for_characters(characters, row_index), range(klass.CHARACTER_HEIGHT)))
+    return '\n'.join(map(lambda row_index: klass.__ascii_row_for_characters(list(string), row_index), range(klass.CHARACTER_HEIGHT)))
 
   @classmethod
   def __ascii_row_for_characters(klass, characters, row_index):
