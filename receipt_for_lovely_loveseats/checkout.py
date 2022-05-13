@@ -27,15 +27,10 @@ class Checkout:
 
       return
 
-    item_index = self.items.index(item)
     item['count'] -= count
-    self.items[item_index] = item
 
   def __find_item(self, product_key):
     return next((item for item in self.items if item['product_key'] == product_key), None)
 
   def __increment_existing_item(self, item, count):
-    previous_count = item['count']
-
-    self.remove_from_checkout(product_key = item['product_key'], count = item['count'])
-    self.items.append({ 'product_key': item['product_key'], 'count': previous_count + count })
+    item['count'] += count
