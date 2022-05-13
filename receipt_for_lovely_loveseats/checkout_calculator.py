@@ -20,4 +20,4 @@ class CheckoutCalculator:
     return sum(map(lambda item: item['count'] * self.products[item['product_key']]['price'], self.items))
 
   def __calculate_total(self, sales_tax_rate):
-    return self.__calculate_subtotal() + self.__calculate_sales_tax_total(sales_tax_rate)
+    return self.__calculate_subtotal() + self.__calculate_sales_tax_total(sales_tax_rate = sales_tax_rate)
