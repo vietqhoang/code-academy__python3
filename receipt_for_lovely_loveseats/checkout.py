@@ -7,7 +7,7 @@ class Checkout:
     item = self.__find_item(product_key)
 
     if item is None:
-      self.items.append({ 'product_key': product_key, 'count': count })
+      self.items.append(self.__item(product_key = product_key, count = count))
     else:
       self.__increment_existing_item(item, count)
 
@@ -34,3 +34,6 @@ class Checkout:
 
   def __increment_existing_item(self, item, additional_count):
     item['count'] += additional_count
+
+  def __item(self, product_key, count):
+    return { 'product_key': product_key, 'count': count }
