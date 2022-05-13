@@ -21,16 +21,16 @@ class Checkout:
 
     return self.items
 
-  def __decrement_existing_item(self, item, count):
-    if item['count'] - count <= 0:
+  def __decrement_existing_item(self, item, reduction_count):
+    if item['count'] - reduction_count <= 0:
       self.items.remove(item)
 
       return
 
-    item['count'] -= count
+    item['count'] -= reduction_count
 
   def __find_item(self, product_key):
     return next((item for item in self.items if item['product_key'] == product_key), None)
 
-  def __increment_existing_item(self, item, count):
-    item['count'] += count
+  def __increment_existing_item(self, item, additional_count):
+    item['count'] += additional_count
