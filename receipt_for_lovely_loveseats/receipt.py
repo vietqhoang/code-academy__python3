@@ -4,13 +4,14 @@ class Receipt:
 
   def receipt_body(self, items = [], totals = {}):
     receipt_line_items = []
+    formatted_totals = self.__format_totals(totals)
 
     receipt_line_items.append('Customer Items:')
     receipt_line_items.extend(self.__receipt_product_line_item_list(items))
     receipt_line_items.append('')
-    receipt_line_items.append(f'Subtotal: ${self.__format_number(totals["subtotal"])}')
-    receipt_line_items.append(f'Sales tax ({self.__format_number(totals["sales_tax_rate"] * 100)}%): ${self.__format_number(totals["sales_tax_total"])}')
-    receipt_line_items.append(f'Total: ${self.__format_number(totals["total"])}')
+    receipt_line_items.append(f'Subtotal: ${formatted_totals["subtotal"]}')
+    receipt_line_items.append(f'Sales tax ({formatted_totals["sales_tax_rate"]}%): ${formatted_totals["sales_tax_total"]}')
+    receipt_line_items.append(f'Total: ${formatted_totals["total"]}')
 
     return '\n'.join(receipt_line_items)
 
@@ -22,3 +23,9 @@ class Receipt:
 
   def __format_number(self, amount):
     return f'{amount:0.2f}'
+
+  def __format_totals(self, totals):
+    new_totals = totals.copy()
+    new_totals['sales_tax_rate'] *= 100
+
+    return dict((key, self.__format_number(value)) for key, value in new_totals.items())
