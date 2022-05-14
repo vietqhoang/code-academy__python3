@@ -3,7 +3,7 @@ from checkout import Checkout
 
 class TestCheckoutAddToCheckout(TestCase):
   def setUp(self):
-    self.checkout = Checkout(products = { 'book': {}, 'chair': {}, 'desk': {}}, items = [])
+    self.checkout = Checkout(products = { 'book': {}, 'chair': {}, 'desk': {}})
 
   def test_add_to_checkout_returns_current_checkout_list(self):
     'When a product and subsequent products are added to checkout, the returned checkout list reflects the current items'
