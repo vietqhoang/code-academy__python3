@@ -1,31 +1,53 @@
+'''Module which is responsible for receipts'''
+
 class Receipt:
-  def __init__(self, products = []):
-    self.products = products
+    '''Class that manages the generation of a receipt'''
 
-  def receipt_body(self, items = [], totals = {}):
-    receipt_line_items = []
-    formatted_totals = self.__format_totals(totals)
+    def __init__(self, products = None):
+        self.products = products or []
 
-    receipt_line_items.append('Customer Items:')
-    receipt_line_items.extend(self.__receipt_product_line_item_list(items))
-    receipt_line_items.append('')
-    receipt_line_items.append(f'Subtotal: ${formatted_totals["subtotal"]}')
-    receipt_line_items.append(f'Sales tax ({formatted_totals["sales_tax_rate"]}%): ${formatted_totals["sales_tax_total"]}')
-    receipt_line_items.append(f'Total: ${formatted_totals["total"]}')
+    def receipt_body(self, items = None, totals = None):
+        '''Returns the receipt string body'''
 
-    return '\n'.join(receipt_line_items)
+        items = items or []
+        totals = totals or {}
 
-  def __receipt_product_line_item(self, item_count, product):
-    return f'* {item_count}x {product["name"]}: {product["description"]}'
+        receipt_line_items = []
+        formatted_totals = self._format_totals(totals)
 
-  def __receipt_product_line_item_list(self, items):
-    return list(map(lambda item: self.__receipt_product_line_item(item_count = item['count'], product = self.products[item['product_key']]), items))
+        receipt_line_items.append('Customer Items:')
+        receipt_line_items.extend(self._receipt_product_line_item_list(items))
+        receipt_line_items.append('')
+        receipt_line_items.append(f'Subtotal: ${formatted_totals["subtotal"]}')
+        receipt_line_items.append(
+            f'Sales tax ({formatted_totals["sales_tax_rate"]}%): '
+            f'${formatted_totals["sales_tax_total"]}'
+        )
+        receipt_line_items.append(f'Total: ${formatted_totals["total"]}')
 
-  def __format_number(self, amount):
-    return f'{amount:0.2f}'
+        return '\n'.join(receipt_line_items)
 
-  def __format_totals(self, totals):
-    new_totals = totals.copy()
-    new_totals['sales_tax_rate'] *= 100
+    @staticmethod
+    def _receipt_product_line_item(item_count, product):
+        return f'* {item_count}x {product["name"]}: {product["description"]}'
 
-    return dict((key, self.__format_number(value)) for key, value in new_totals.items())
+    def _receipt_product_line_item_list(self, items):
+        return list(
+            map(
+                lambda item: self._receipt_product_line_item(
+                    item_count = item['count'],
+                    product = self.products[item['product_key']]
+                ),
+                items
+            )
+        )
+
+    @staticmethod
+    def _format_number(amount):
+        return f'{amount:0.2f}'
+
+    def _format_totals(self, totals):
+        new_totals = totals.copy()
+        new_totals['sales_tax_rate'] *= 100
+
+        return dict((key, self._format_number(value)) for key, value in new_totals.items())

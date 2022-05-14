@@ -1,23 +1,37 @@
+'''Module which is responsible for calculating an itemizations cost based on product information'''
+
 class CheckoutCalculator:
-  def __init__(self, products = {}):
-    self.items = []
-    self.products = products
+    '''Class that calculates the cost totals for a list of items'''
 
-  def calculate_totals(self, items = [], sales_tax_rate = 0):
-    self.items = items
+    def __init__(self, products = None):
+        self.items = []
+        self.products = products or {}
 
-    return {
-      'subtotal': self.__calculate_subtotal(),
-      'sales_tax_rate': sales_tax_rate,
-      'sales_tax_total': self.__calculate_sales_tax_total(sales_tax_rate = sales_tax_rate),
-      'total': self.__calculate_total(sales_tax_rate = sales_tax_rate)
-    }
+    def calculate_totals(self, items = None, sales_tax_rate = 0):
+        '''Calculate the subtotal, sales tax total, and total based on the items'''
 
-  def __calculate_sales_tax_total(self, sales_tax_rate):
-    return self.__calculate_subtotal() * sales_tax_rate
+        self.items = items or []
 
-  def __calculate_subtotal(self):
-    return sum(map(lambda item: item['count'] * self.products[item['product_key']]['price'], self.items))
+        return {
+            'subtotal': self._calculate_subtotal(),
+            'sales_tax_rate': sales_tax_rate,
+            'sales_tax_total': self._calculate_sales_tax_total(sales_tax_rate = sales_tax_rate),
+            'total': self._calculate_total(sales_tax_rate = sales_tax_rate)
+        }
 
-  def __calculate_total(self, sales_tax_rate):
-    return self.__calculate_subtotal() + self.__calculate_sales_tax_total(sales_tax_rate = sales_tax_rate)
+    def _calculate_sales_tax_total(self, sales_tax_rate):
+        return self._calculate_subtotal() * sales_tax_rate
+
+    def _calculate_subtotal(self):
+        return sum(
+            map(
+                lambda item: item['count'] * self.products[item['product_key']]['price'],
+                self.items
+            )
+        )
+
+    def _calculate_total(self, sales_tax_rate):
+        return (
+            self._calculate_subtotal() +
+            self._calculate_sales_tax_total(sales_tax_rate = sales_tax_rate)
+        )
