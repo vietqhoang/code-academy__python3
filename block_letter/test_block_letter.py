@@ -1,66 +1,73 @@
+'Unit test for BlockLetter'
+
 import unittest
 from block_letter import BlockLetter
 
-class TestBlockLetter(unittest.TestCase):
-  def setUp(self):
-    self.block_letter = BlockLetter
+class TestBlockLetterCharacters(unittest.TestCase):
+    'Tests for BlockLetter.characters'
 
-  def test_characters_with_v(self):
-    'When the argument is is an `V`, it is expected to output the `V` block letter'
+    def setUp(self):
+        self.block_letter = BlockLetter
 
-    expectation = (
-      'V   V\n'
-      'V   V\n'
-      'V   V\n'
-      'V   V\n'
-      'V   V\n'
-      ' V V \n'
-      '  V  '
-    )
+    def test_characters_with_v(self):
+        'When the argument is is an `V`, it is expected to output the `V` block letter'
 
-    self.assertEqual(self.block_letter.characters('V'), expectation)
+        expectation = (
+            'V   V\n'
+            'V   V\n'
+            'V   V\n'
+            'V   V\n'
+            'V   V\n'
+            ' V V \n'
+            '  V  '
+        )
 
-  def test_characters_with_q(self):
-    'When the argument is is an `Q`, it is expected to output the `Q` block letter'
+        self.assertEqual(self.block_letter.characters('V'), expectation)
 
-    expectation = (
-      ' QQQ \n'
-      'Q   Q\n'
-      'Q   Q\n'
-      'Q   Q\n'
-      'Q   Q\n'
-      'Q  Q \n'
-      ' QQ Q'
-    )
+    def test_characters_with_q(self):
+        'When the argument is is an `Q`, it is expected to output the `Q` block letter'
 
-    self.assertEqual(self.block_letter.characters('Q'), expectation)
+        expectation = (
+            ' QQQ \n'
+            'Q   Q\n'
+            'Q   Q\n'
+            'Q   Q\n'
+            'Q   Q\n'
+            'Q  Q \n'
+            ' QQ Q'
+        )
 
-  def test_characters_with_h(self):
-    'When the argument is is an `H`, it is expected to output the `H` block letter'
+        self.assertEqual(self.block_letter.characters('Q'), expectation)
 
-    expectation = (
-      'H   H\n'
-      'H   H\n'
-      'H   H\n'
-      'HHHHH\n'
-      'H   H\n'
-      'H   H\n'
-      'H   H'
-    )
+    def test_characters_with_h(self):
+        'When the argument is is an `H`, it is expected to output the `H` block letter'
 
-    self.assertEqual(self.block_letter.characters('H'), expectation)
+        expectation = (
+            'H   H\n'
+            'H   H\n'
+            'H   H\n'
+            'HHHHH\n'
+            'H   H\n'
+            'H   H\n'
+            'H   H'
+        )
 
-  def test_characters_with_vqh(self):
-    'When the argument is multiple characters, it is expected to output characters from left-to-right'
+        self.assertEqual(self.block_letter.characters('H'), expectation)
 
-    expectation = (
-      'V   V  QQQ  H   H\n'
-      'V   V Q   Q H   H\n'
-      'V   V Q   Q H   H\n'
-      'V   V Q   Q HHHHH\n'
-      'V   V Q   Q H   H\n'
-      ' V V  Q  Q  H   H\n'
-      '  V    QQ Q H   H'
-    )
+    def test_characters_with_vqh(self):
+        '''
+            When the argument is multiple characters,
+            it is expected to output characters from left-to-right
+        '''
 
-    self.assertEqual(self.block_letter.characters('VQH'), expectation)
+        expectation = (
+            'V   V  QQQ  H   H\n'
+            'V   V Q   Q H   H\n'
+            'V   V Q   Q H   H\n'
+            'V   V Q   Q HHHHH\n'
+            'V   V Q   Q H   H\n'
+            ' V V  Q  Q  H   H\n'
+            '  V    QQ Q H   H'
+        )
+
+        self.assertEqual(self.block_letter.characters('VQH'), expectation)
