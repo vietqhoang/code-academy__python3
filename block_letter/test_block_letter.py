@@ -1,15 +1,15 @@
-'Unit test for BlockLetter'
+'Unit tests for block_letter'
 
-import unittest
-from block_letter import BlockLetter
+from unittest import TestCase
+from block_letter import characters_to_block_letters
 
-class TestBlockLetterCharacters(unittest.TestCase):
-    'Tests for BlockLetter.characters'
+class TestCharactersToBlockLetter(TestCase):
+    'Tests for `characters_to_block_letter`'
 
     def setUp(self):
-        self.block_letter = BlockLetter
+        self.subject = characters_to_block_letters
 
-    def test_characters_with_v(self):
+    def test_characters_to_block_letters_with_v(self):
         'When the argument is is an `V`, it is expected to output the `V` block letter'
 
         expectation = (
@@ -22,9 +22,9 @@ class TestBlockLetterCharacters(unittest.TestCase):
             '  V  '
         )
 
-        self.assertEqual(self.block_letter.characters('V'), expectation)
+        self.assertEqual(self.subject('V'), expectation)
 
-    def test_characters_with_q(self):
+    def test_characters_to_block_letters_with_q(self):
         'When the argument is is an `Q`, it is expected to output the `Q` block letter'
 
         expectation = (
@@ -37,9 +37,9 @@ class TestBlockLetterCharacters(unittest.TestCase):
             ' QQ Q'
         )
 
-        self.assertEqual(self.block_letter.characters('Q'), expectation)
+        self.assertEqual(self.subject('Q'), expectation)
 
-    def test_characters_with_h(self):
+    def test_characters_to_block_letters_with_h(self):
         'When the argument is is an `H`, it is expected to output the `H` block letter'
 
         expectation = (
@@ -52,13 +52,13 @@ class TestBlockLetterCharacters(unittest.TestCase):
             'H   H'
         )
 
-        self.assertEqual(self.block_letter.characters('H'), expectation)
+        self.assertEqual(self.subject('H'), expectation)
 
-    def test_characters_with_vqh(self):
-        '''
-            When the argument is multiple characters,
-            it is expected to output characters from left-to-right
-        '''
+    def test_characters_to_block_letters_with_vqh(self):
+        (
+            'When the argument is multiple characters, '
+            'it is expected to output characters from left-to-right'
+        )
 
         expectation = (
             'V   V  QQQ  H   H\n'
@@ -70,4 +70,4 @@ class TestBlockLetterCharacters(unittest.TestCase):
             '  V    QQ Q H   H'
         )
 
-        self.assertEqual(self.block_letter.characters('VQH'), expectation)
+        self.assertEqual(self.subject('VQH'), expectation)
