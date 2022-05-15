@@ -1,10 +1,10 @@
-'''
-    Integration sample of checking out products, calculating the totals,
-    and generating the receipt body
-'''
+(
+    'Integration example of checking out products, calculating the totals, '
+    'and generating the receipt body'
+)
 
-from checkout import Checkout
-from checkout_calculator import CheckoutCalculator
+from checkout_cart import CheckoutCart
+from checkout_cart_calculator import CheckoutCartCalculator
 from receipt import Receipt
 
 PRODUCTS = {
@@ -34,19 +34,19 @@ PRODUCTS = {
 }
 SALES_TAX_RATE = 0.088
 
-checkout = CheckoutCart(products = PRODUCTS)
+checkout_cart = CheckoutCart(products = PRODUCTS)
 
-checkout.add_to_checkout(product_key = 'stylish_settee', count = 4)
-checkout.add_to_checkout(product_key = 'luxurious_lamp', count = 2)
-checkout.add_to_checkout(product_key = 'lovely_loveseat', count = 5)
-checkout.remove_from_checkout(product_key = 'stylish_settee', count = 3)
-checkout.remove_from_checkout(product_key = 'luxurious_lamp', count = 2)
+checkout_cart.add_to_checkout(product_key = 'stylish_settee', count = 4)
+checkout_cart.add_to_checkout(product_key = 'luxurious_lamp', count = 2)
+checkout_cart.add_to_checkout(product_key = 'lovely_loveseat', count = 5)
+checkout_cart.remove_from_checkout(product_key = 'stylish_settee', count = 3)
+checkout_cart.remove_from_checkout(product_key = 'luxurious_lamp', count = 2)
 
-checkout_calculator = CheckoutCartCalculator(products = PRODUCTS)
-checkout_totals = checkout_calculator.calculate_totals(
-    items = checkout.items,
+checkout_cart_calculator = CheckoutCartCalculator(products = PRODUCTS)
+checkout_totals = checkout_cart_calculator.calculate_totals(
+    items = checkout_cart.items,
     sales_tax_rate = SALES_TAX_RATE
 )
 receipt = Receipt(products = PRODUCTS)
 
-print(receipt.receipt_body(items = checkout.items, totals = checkout_totals))
+print(receipt.receipt_body(items = checkout_cart.items, totals = checkout_totals))

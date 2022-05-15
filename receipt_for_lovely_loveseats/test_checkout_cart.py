@@ -11,10 +11,10 @@ class TestCheckoutCartAddToCheckout(TestCase):
         self.subject = self.subject_cls.add_to_checkout
 
     def test_add_to_checkout_returns_current_checkout_list(self):
-        '''
-            When a product and subsequent products are added to checkout,
-            the returned checkout list reflects the current items
-        '''
+        (
+            'When a product and subsequent products are added to checkout, '
+            'the returned checkout list reflects the current items'
+        )
 
         self.assertCountEqual(
             self.subject(product_key = 'book', count = 2),
@@ -38,10 +38,10 @@ class TestCheckoutCartAddToCheckout(TestCase):
         )
 
     def test_add_to_checkout_updates_current_checkout_list(self):
-        '''
-            When a product and subsequent products are added to checkout,
-            the `items` data member is updated to reflect the added product
-        '''
+        (
+            'When a product and subsequent products are added to checkout, '
+            'the `items` data member is updated to reflect the added product'
+        )
 
 
         self.subject(product_key = 'book', count = 4)
@@ -82,10 +82,10 @@ class TestCheckoutRemoveFromCheckout(TestCase):
         self.subject = self.subject_cls.remove_from_checkout
 
     def test_remove_from_checkout_returns_current_checkout_list(self):
-        '''
-            When a product and subsequent products are removed from checkout,
-            the returned checkout list reflects the current items
-        '''
+        (
+            'When a product and subsequent products are removed from checkout, '
+            'the returned checkout list reflects the current items'
+        )
 
         self.assertCountEqual(
             self.subject(product_key = 'chair', count = 2),
@@ -111,10 +111,10 @@ class TestCheckoutRemoveFromCheckout(TestCase):
         )
 
     def test_remove_from_checkout_updates_current_checkout_list(self):
-        '''
-            When a product and subsequent products are removed from checkout,
-            the `items` data member is updated to reflect the removed product
-        '''
+        (
+            'When a product and subsequent products are removed from checkout, '
+            'the `items` data member is updated to reflect the removed product'
+        )
 
         self.subject(product_key = 'chair', count = 4)
         self.assertCountEqual(
