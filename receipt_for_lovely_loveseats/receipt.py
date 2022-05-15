@@ -1,13 +1,13 @@
-'''Module which is responsible for receipts'''
+'Module which is responsible for receipts'
 
 class Receipt:
-    '''Class that manages the generation of a receipt'''
+    'Class that manages the generation of a receipt'
 
     def __init__(self, products = None):
         self.products = products or []
 
     def receipt_body(self, items = None, totals = None):
-        '''Returns the receipt string body'''
+        'Returns the receipt string body'
 
         items = items or []
         totals = totals or {}

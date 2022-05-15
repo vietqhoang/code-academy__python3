@@ -1,14 +1,14 @@
-'''Module which is responsible for checkout cart'''
+'Module which is responsible for checkout cart'
 
 class CheckoutCart:
-    '''Class that manages product checkout cart'''
+    'Class that manages product checkout cart'
 
     def __init__(self, products = None, items = None):
         self.products = products or {}
         self.items = items or []
 
     def add_to_checkout(self, product_key, count):
-        '''Add a product and its quantity in checkout'''
+        'Add a product and its quantity in checkout'
 
         item = self._find_item(product_key)
 
@@ -20,7 +20,7 @@ class CheckoutCart:
         return self.items
 
     def remove_from_checkout(self, product_key, count):
-        '''Remove a product and its quantity in checkout'''
+        'Remove a product and its quantity in checkout'
 
         item = self._find_item(product_key)
 

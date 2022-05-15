@@ -1,14 +1,14 @@
-'''Module which is responsible for calculating an itemizations cost based on product information'''
+'Module which is responsible for calculating an itemizations cost based on product information'
 
 class CheckoutCartCalculator:
-    '''Class that calculates the cost totals for a list of items'''
+    'Class that calculates the cost totals for a list of items'
 
     def __init__(self, products = None):
         self.items = []
         self.products = products or {}
 
     def calculate_totals(self, items = None, sales_tax_rate = 0):
-        '''Calculate the subtotal, sales tax total, and total based on the items'''
+        'Calculate the subtotal, sales tax total, and total based on the items'
 
         self.items = items or []
 
