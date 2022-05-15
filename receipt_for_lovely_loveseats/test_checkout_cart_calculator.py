@@ -7,19 +7,19 @@ class TestCheckoutCartCalculatorCalculateTotals(TestCase):
     'Unit test for CheckoutCartCalculator.calculate_totals'
 
     def setUp(self):
-        self.checkout_cart_calculator = CheckoutCartCalculator(
+        self.subject = CheckoutCartCalculator(
             products = {
                 'book': { 'price': 1.50 },
                 'chair': { 'price': 3 },
                 'desk': { 'price': 10.32 }
             }
-        )
+        ).calculate_totals
 
     def test_calculate_totals_when_items_is_not_populated(self):
         'When the data member `items` is not_populated, it returns with totals of `0`'
 
         self.assertDictEqual(
-            self.checkout_cart_calculator.calculate_totals(items = []),
+            self.subject(items = []),
             { 'subtotal': 0, 'sales_tax_total': 0, 'sales_tax_rate': 0, 'total': 0 }
         )
 
@@ -37,7 +37,7 @@ class TestCheckoutCartCalculatorCalculateTotals(TestCase):
         expected_total = expected_subtotal + expected_sales_tax_total
 
         self.assertDictEqual(
-            self.checkout_cart_calculator.calculate_totals(
+            self.subject(
                 items = items,
                 sales_tax_rate = sales_tax_rate
             ),

@@ -7,7 +7,8 @@ class TestCheckoutCartAddToCheckout(TestCase):
     'Unit test for CheckoutCart.add_to_checkout'
 
     def setUp(self):
-        self.checkout_cart = CheckoutCart(products = { 'book': {}, 'chair': {}, 'desk': {}})
+        self.subject_cls = CheckoutCart(products = { 'book': {}, 'chair': {}, 'desk': {}})
+        self.subject = self.subject_cls.add_to_checkout
 
     def test_add_to_checkout_returns_current_checkout_list(self):
         '''
@@ -16,12 +17,12 @@ class TestCheckoutCartAddToCheckout(TestCase):
         '''
 
         self.assertCountEqual(
-            self.checkout_cart.add_to_checkout(product_key = 'book', count = 2),
+            self.subject(product_key = 'book', count = 2),
             [{ 'product_key': 'book', 'count': 2 }]
         )
 
         self.assertCountEqual(
-            self.checkout_cart.add_to_checkout(product_key = 'desk', count = 1),
+            self.subject(product_key = 'desk', count = 1),
             [
                 { 'product_key': 'book', 'count': 2 },
                 { 'product_key': 'desk', 'count': 1 }
@@ -29,7 +30,7 @@ class TestCheckoutCartAddToCheckout(TestCase):
         )
 
         self.assertCountEqual(
-            self.checkout_cart.add_to_checkout(product_key = 'desk', count = 3),
+            self.subject(product_key = 'desk', count = 3),
             [
                 { 'product_key': 'book', 'count': 2 },
                 { 'product_key': 'desk', 'count': 4 }
@@ -43,24 +44,24 @@ class TestCheckoutCartAddToCheckout(TestCase):
         '''
 
 
-        self.checkout_cart.add_to_checkout(product_key = 'book', count = 4)
+        self.subject(product_key = 'book', count = 4)
         self.assertCountEqual(
-            self.checkout_cart.items,
+            self.subject_cls.items,
             [{ 'product_key': 'book', 'count': 4 }]
         )
 
-        self.checkout_cart.add_to_checkout(product_key = 'desk', count = 2)
+        self.subject(product_key = 'desk', count = 2)
         self.assertCountEqual(
-            self.checkout_cart.items,
+            self.subject_cls.items,
             [
                 { 'product_key': 'book', 'count': 4 },
                 { 'product_key': 'desk', 'count': 2 }
             ]
         )
 
-        self.checkout_cart.add_to_checkout(product_key = 'book', count = 3)
+        self.subject(product_key = 'book', count = 3)
         self.assertCountEqual(
-            self.checkout_cart.items,
+            self.subject_cls.items,
             [
                 { 'product_key': 'book', 'count': 7 },
                 { 'product_key': 'desk', 'count': 2 }
@@ -71,13 +72,14 @@ class TestCheckoutRemoveFromCheckout(TestCase):
     'Unit test for CheckoutCart.remove_from_checkout'
 
     def setUp(self):
-        self.checkout_cart = CheckoutCart(
+        self.subject_cls = CheckoutCart(
             products = { 'book': {}, 'chair': {}, 'desk': {} },
             items = [
                 { 'product_key': 'chair', 'count': 8 },
                 { 'product_key': 'desk', 'count': 15 }
             ]
         )
+        self.subject = self.subject_cls.remove_from_checkout
 
     def test_remove_from_checkout_returns_current_checkout_list(self):
         '''
@@ -86,7 +88,7 @@ class TestCheckoutRemoveFromCheckout(TestCase):
         '''
 
         self.assertCountEqual(
-            self.checkout_cart.remove_from_checkout(product_key = 'chair', count = 2),
+            self.subject(product_key = 'chair', count = 2),
             [
                 { 'product_key': 'chair', 'count': 6 },
                 { 'product_key': 'desk', 'count': 15 }
@@ -94,17 +96,17 @@ class TestCheckoutRemoveFromCheckout(TestCase):
         )
 
         self.assertCountEqual(
-            self.checkout_cart.remove_from_checkout(product_key = 'desk', count = 15),
+            self.subject(product_key = 'desk', count = 15),
             [{ 'product_key': 'chair', 'count': 6 }]
         )
 
         self.assertCountEqual(
-            self.checkout_cart.remove_from_checkout(product_key = 'chair', count = 8),
+            self.subject(product_key = 'chair', count = 8),
             []
         )
 
         self.assertCountEqual(
-            self.checkout_cart.remove_from_checkout(product_key = 'chair', count = 3),
+            self.subject(product_key = 'chair', count = 3),
             []
         )
 
@@ -114,23 +116,23 @@ class TestCheckoutRemoveFromCheckout(TestCase):
             the `items` data member is updated to reflect the removed product
         '''
 
-        self.checkout_cart.remove_from_checkout(product_key = 'chair', count = 4)
+        self.subject(product_key = 'chair', count = 4)
         self.assertCountEqual(
-            self.checkout_cart.items,
+            self.subject_cls.items,
             [
                 { 'product_key': 'chair', 'count': 4 },
                 { 'product_key': 'desk', 'count': 15 }
             ]
         )
 
-        self.checkout_cart.remove_from_checkout(product_key = 'chair', count = 4)
+        self.subject(product_key = 'chair', count = 4)
         self.assertCountEqual(
-            self.checkout_cart.items,
+            self.subject_cls.items,
             [{ 'product_key': 'desk', 'count': 15 }]
         )
 
-        self.checkout_cart.remove_from_checkout(product_key = 'desk', count = 15)
-        self.assertCountEqual(self.checkout_cart.items, [])
+        self.subject(product_key = 'desk', count = 15)
+        self.assertCountEqual(self.subject_cls.items, [])
 
-        self.checkout_cart.remove_from_checkout(product_key = 'desk', count = 3)
-        self.assertCountEqual(self.checkout_cart.items, [])
+        self.subject(product_key = 'desk', count = 3)
+        self.assertCountEqual(self.subject_cls.items, [])
