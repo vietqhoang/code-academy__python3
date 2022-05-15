@@ -7,7 +7,7 @@ class TestReceiptReceiptBody(TestCase):
     'Unit test for Receipt.receipt.body'
 
     def setUp(self):
-        self.receipt = Receipt(
+        self.subject = Receipt(
             products = {
                 'book': {
                     'name': 'If You Give A Mouse A Cookie',
@@ -22,7 +22,7 @@ class TestReceiptReceiptBody(TestCase):
                     'description': 'It is a pretty good desk!'
                 }
             }
-        )
+        ).receipt_body
 
     @classmethod
     def setUpClass(cls):
@@ -52,6 +52,6 @@ class TestReceiptReceiptBody(TestCase):
         )
 
         self.assertEqual(
-            self.receipt.receipt_body(items = self.items, totals = self.totals),
+            self.subject(items = self.items, totals = self.totals),
             expected_body
         )
