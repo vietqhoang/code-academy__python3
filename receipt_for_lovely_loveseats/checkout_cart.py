@@ -1,7 +1,7 @@
-'''Module which is responsible for checkout'''
+'''Module which is responsible for checkout cart'''
 
-class Checkout:
-    '''Class that manages product checkout'''
+class CheckoutCart:
+    '''Class that manages product checkout cart'''
 
     def __init__(self, products = None, items = None):
         self.products = products or {}

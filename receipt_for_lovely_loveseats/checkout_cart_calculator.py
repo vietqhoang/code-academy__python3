@@ -1,6 +1,6 @@
 '''Module which is responsible for calculating an itemizations cost based on product information'''
 
-class CheckoutCalculator:
+class CheckoutCartCalculator:
     '''Class that calculates the cost totals for a list of items'''
 
     def __init__(self, products = None):

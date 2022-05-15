@@ -34,7 +34,7 @@ PRODUCTS = {
 }
 SALES_TAX_RATE = 0.088
 
-checkout = Checkout(products = PRODUCTS)
+checkout = CheckoutCart(products = PRODUCTS)
 
 checkout.add_to_checkout(product_key = 'stylish_settee', count = 4)
 checkout.add_to_checkout(product_key = 'luxurious_lamp', count = 2)
@@ -42,7 +42,7 @@ checkout.add_to_checkout(product_key = 'lovely_loveseat', count = 5)
 checkout.remove_from_checkout(product_key = 'stylish_settee', count = 3)
 checkout.remove_from_checkout(product_key = 'luxurious_lamp', count = 2)
 
-checkout_calculator = CheckoutCalculator(products = PRODUCTS)
+checkout_calculator = CheckoutCartCalculator(products = PRODUCTS)
 checkout_totals = checkout_calculator.calculate_totals(
     items = checkout.items,
     sales_tax_rate = SALES_TAX_RATE
