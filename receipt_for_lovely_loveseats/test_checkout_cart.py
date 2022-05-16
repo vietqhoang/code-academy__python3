@@ -7,8 +7,8 @@ class TestCheckoutCartAddToCheckout(TestCase):
     'Unit test for CheckoutCart.add_to_checkout'
 
     def setUp(self):
-        self.subject_cls = CheckoutCart(products = { 'book': {}, 'chair': {}, 'desk': {}})
-        self.subject = self.subject_cls.add_to_checkout
+        self.instance = CheckoutCart(products = { 'book': {}, 'chair': {}, 'desk': {}})
+        self.subject = self.instance.add_to_checkout
 
     def test_add_to_checkout_returns_current_checkout_list(self):
         (
@@ -46,13 +46,13 @@ class TestCheckoutCartAddToCheckout(TestCase):
 
         self.subject(product_key = 'book', count = 4)
         self.assertCountEqual(
-            self.subject_cls.items,
+            self.instance.items,
             [{ 'product_key': 'book', 'count': 4 }]
         )
 
         self.subject(product_key = 'desk', count = 2)
         self.assertCountEqual(
-            self.subject_cls.items,
+            self.instance.items,
             [
                 { 'product_key': 'book', 'count': 4 },
                 { 'product_key': 'desk', 'count': 2 }
@@ -61,7 +61,7 @@ class TestCheckoutCartAddToCheckout(TestCase):
 
         self.subject(product_key = 'book', count = 3)
         self.assertCountEqual(
-            self.subject_cls.items,
+            self.instance.items,
             [
                 { 'product_key': 'book', 'count': 7 },
                 { 'product_key': 'desk', 'count': 2 }
@@ -72,14 +72,14 @@ class TestCheckoutRemoveFromCheckout(TestCase):
     'Unit test for CheckoutCart.remove_from_checkout'
 
     def setUp(self):
-        self.subject_cls = CheckoutCart(
+        self.instance = CheckoutCart(
             products = { 'book': {}, 'chair': {}, 'desk': {} },
             items = [
                 { 'product_key': 'chair', 'count': 8 },
                 { 'product_key': 'desk', 'count': 15 }
             ]
         )
-        self.subject = self.subject_cls.remove_from_checkout
+        self.subject = self.instance.remove_from_checkout
 
     def test_remove_from_checkout_returns_current_checkout_list(self):
         (
@@ -118,7 +118,7 @@ class TestCheckoutRemoveFromCheckout(TestCase):
 
         self.subject(product_key = 'chair', count = 4)
         self.assertCountEqual(
-            self.subject_cls.items,
+            self.instance.items,
             [
                 { 'product_key': 'chair', 'count': 4 },
                 { 'product_key': 'desk', 'count': 15 }
@@ -127,12 +127,12 @@ class TestCheckoutRemoveFromCheckout(TestCase):
 
         self.subject(product_key = 'chair', count = 4)
         self.assertCountEqual(
-            self.subject_cls.items,
+            self.instance.items,
             [{ 'product_key': 'desk', 'count': 15 }]
         )
 
         self.subject(product_key = 'desk', count = 15)
-        self.assertCountEqual(self.subject_cls.items, [])
+        self.assertCountEqual(self.instance.items, [])
 
         self.subject(product_key = 'desk', count = 3)
-        self.assertCountEqual(self.subject_cls.items, [])
+        self.assertCountEqual(self.instance.items, [])
