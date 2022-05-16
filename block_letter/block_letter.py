@@ -1,7 +1,5 @@
 'Module responsible for block letters'
 
-from functools import reduce
-
 CHARACTER_HEIGHT = 7
 CHARACTER_WIDTH = 5
 ASCII_CHARACTER_INDEXES = {
@@ -38,25 +36,21 @@ def characters_to_block_letters(string):
     'Returns string as ASCII block letters'
 
     return '\n'.join(
-        map(
-            lambda row_index: _ascii_row_for_characters([*string], row_index),
-            range(CHARACTER_HEIGHT)
-        )
+        [_ascii_row_for_characters([*string], row_index) for row_index in range(CHARACTER_HEIGHT)]
     )
 
 def _ascii_row_for_characters(characters, row_index):
     return ' '.join(
-        map(
-            lambda character: _ascii_row_for_character(
-                character, ASCII_CHARACTER_INDEXES[character][row_index]
-            ),
-            characters
-        )
+        [
+            _ascii_row_for_character(character, ASCII_CHARACTER_INDEXES[character][row_index])
+            for character in characters
+        ]
     )
 
 def _ascii_row_for_character(character, column_indexes):
-    return reduce(
-        lambda result, column_index: result + (' ', character)[column_index in column_indexes],
-        range(CHARACTER_WIDTH),
-        ''
+    return ''.join(
+        [
+            (' ', character)[column_index in column_indexes]
+            for column_index in range(CHARACTER_WIDTH)
+        ]
     )
