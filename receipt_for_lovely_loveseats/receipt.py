@@ -32,15 +32,13 @@ class Receipt:
         return f'* {item_count}x {product["name"]}: {product["description"]}'
 
     def _receipt_product_line_item_list(self, items):
-        return list(
-            map(
-                lambda item: self._receipt_product_line_item(
-                    item_count = item['count'],
-                    product = self.products[item['product_key']]
-                ),
-                items
+        return [
+            self._receipt_product_line_item(
+                item_count = item['count'],
+                product = self.products[item['product_key']]
             )
-        )
+            for item in items
+        ]
 
     @staticmethod
     def _format_number(amount):

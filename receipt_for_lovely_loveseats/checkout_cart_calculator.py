@@ -24,10 +24,10 @@ class CheckoutCartCalculator:
 
     def _calculate_subtotal(self):
         return sum(
-            map(
-                lambda item: item['count'] * self.products[item['product_key']]['price'],
-                self.items
-            )
+            [
+                item['count'] * self.products[item['product_key']]['price']
+                for item in self.items
+            ]
         )
 
     def _calculate_total(self, sales_tax_rate):
