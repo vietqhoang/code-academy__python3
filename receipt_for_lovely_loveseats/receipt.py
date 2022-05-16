@@ -48,4 +48,7 @@ class Receipt:
         new_totals = totals.copy()
         new_totals['sales_tax_rate'] *= 100
 
-        return dict((key, self._format_number(value)) for key, value in new_totals.items())
+        for key, value in new_totals.items():
+            new_totals[key] = self._format_number(value)
+
+        return new_totals
