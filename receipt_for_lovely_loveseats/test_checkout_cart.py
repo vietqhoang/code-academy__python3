@@ -1,13 +1,28 @@
 'Unit test for CheckoutCart class'
 
 from unittest import TestCase
+from unittest.mock import patch
 from checkout_cart import CheckoutCart
+
+class TestCheckoutCartInitValidations(TestCase):
+    'Unit test for CheckoutCart validation calls on initialization'
+
+    @patch('checkout_cart.CheckoutCart._validate_shape_of_products')
+    def test_validate_shape_of_products_is_called(self, mock):
+        CheckoutCart(products = {})
+        self.assertTrue(mock.called)
 
 class TestCheckoutCartAddToCheckout(TestCase):
     'Unit test for CheckoutCart.add_to_checkout'
 
     def setUp(self):
-        self.instance = CheckoutCart(products = { 'book': {}, 'chair': {}, 'desk': {}})
+        self.instance = CheckoutCart(
+            products = {
+                'book': { 'price': 1.50, 'name': 'A book', 'description': 'It is made of paper' },
+                'chair': { 'price': 3 , 'name': 'A chair', 'description': 'It is made of wood'},
+                'desk': { 'price': 10.32, 'name': 'A desk', 'description': 'It is made of water' }
+            }
+        )
         self.subject = self.instance.add_to_checkout
 
     def test_add_to_checkout_returns_current_checkout_list(self):
@@ -73,7 +88,11 @@ class TestCheckoutRemoveFromCheckout(TestCase):
 
     def setUp(self):
         self.instance = CheckoutCart(
-            products = { 'book': {}, 'chair': {}, 'desk': {} },
+            products = {
+                'book': { 'price': 1.50, 'name': 'A book', 'description': 'It is made of paper' },
+                'chair': { 'price': 3 , 'name': 'A chair', 'description': 'It is made of wood'},
+                'desk': { 'price': 10.32, 'name': 'A desk', 'description': 'It is made of water' }
+            },
             items = [
                 { 'product_key': 'chair', 'count': 8 },
                 { 'product_key': 'desk', 'count': 15 }

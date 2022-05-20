@@ -1,7 +1,16 @@
 'Unit test for Receipt class'
 
 from unittest import TestCase
+from unittest.mock import patch
 from receipt import Receipt
+
+class TestReceiptInitValidations(TestCase):
+    'Unit test for Receipt validation calls on initialization'
+
+    @patch('receipt.Receipt._validate_shape_of_products')
+    def test_validate_shape_of_products_is_called(self, mock):
+        Receipt(products = {})
+        self.assertTrue(mock.called)
 
 class TestReceiptReceiptBody(TestCase):
     'Unit test for Receipt.receipt.body'
@@ -11,15 +20,18 @@ class TestReceiptReceiptBody(TestCase):
             products = {
                 'book': {
                     'name': 'If You Give A Mouse A Cookie',
-                    'description': "A children's book about a mouse who likes cookies."
+                    'description': "A children's book about a mouse who likes cookies.",
+                    'price': 2.2
                 },
                 'chair': {
                     'name': 'Herman Miller Eames Lounge Chair',
-                    'description': 'You probably can not afford it.'
+                    'description': 'You probably can not afford it.',
+                    'price': 1
                 },
                 'desk': {
                     'name': 'Fully Jarvis Standing Desk',
-                    'description': 'It is a pretty good desk!'
+                    'description': 'It is a pretty good desk!',
+                    'price': 4.40
                 }
             }
         ).receipt_body

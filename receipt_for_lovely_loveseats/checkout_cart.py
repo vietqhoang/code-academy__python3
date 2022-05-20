@@ -1,11 +1,15 @@
+from products_mixin import ProductsMixin
+
 'Module which is responsible for checkout cart'
 
-class CheckoutCart:
+class CheckoutCart(ProductsMixin):
     'Class that manages product checkout cart'
 
     def __init__(self, products = None, items = None):
         self.products = products or {}
         self.items = items or []
+
+        self._validate_shape_of_products(products)
 
     def add_to_checkout(self, product_key, count):
         'Add a product and its quantity in checkout'

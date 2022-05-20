@@ -1,11 +1,15 @@
+from products_mixin import ProductsMixin
+
 'Module which is responsible for calculating an itemizations cost based on product information'
 
-class CheckoutCartCalculator:
+class CheckoutCartCalculator(ProductsMixin):
     'Class that calculates the cost totals for a list of items'
 
     def __init__(self, products = None):
         self.items = []
         self.products = products or {}
+
+        self._validate_shape_of_products(products)
 
     def calculate_totals(self, items = None, sales_tax_rate = 0):
         'Calculate the subtotal, sales tax total, and total based on the items'

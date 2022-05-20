@@ -1,10 +1,14 @@
+from products_mixin import ProductsMixin
+
 'Module which is responsible for receipts'
 
-class Receipt:
+class Receipt(ProductsMixin):
     'Class that manages the generation of a receipt'
 
     def __init__(self, products = None):
         self.products = products or []
+
+        self._validate_shape_of_products(products)
 
     def receipt_body(self, items = None, totals = None):
         'Returns the receipt string body'

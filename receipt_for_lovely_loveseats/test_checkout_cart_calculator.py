@@ -1,7 +1,16 @@
 'Unit test for CheckoutCartCalculator class'
 
 from unittest import TestCase
+from unittest.mock import patch
 from checkout_cart_calculator import CheckoutCartCalculator
+
+class TestCheckoutCartCalculatorInitValidations(TestCase):
+    'Unit test for CheckoutCartCalculator validation calls on initialization'
+
+    @patch('checkout_cart_calculator.CheckoutCartCalculator._validate_shape_of_products')
+    def test_validate_shape_of_products_is_called(self, mock):
+        CheckoutCartCalculator(products = {})
+        self.assertTrue(mock.called)
 
 class TestCheckoutCartCalculatorCalculateTotals(TestCase):
     'Unit test for CheckoutCartCalculator.calculate_totals'
@@ -9,9 +18,9 @@ class TestCheckoutCartCalculatorCalculateTotals(TestCase):
     def setUp(self):
         self.subject = CheckoutCartCalculator(
             products = {
-                'book': { 'price': 1.50 },
-                'chair': { 'price': 3 },
-                'desk': { 'price': 10.32 }
+                'book': { 'price': 1.50, 'name': 'A book', 'description': 'It is made of paper' },
+                'chair': { 'price': 3 , 'name': 'A chair', 'description': 'It is made of wood'},
+                'desk': { 'price': 10.32, 'name': 'A desk', 'description': 'It is made of water' }
             }
         ).calculate_totals
 
