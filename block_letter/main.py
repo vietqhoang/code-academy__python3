@@ -1,3 +1,5 @@
-from block_letter import BlockLetter
+'Demo of block letter in actions'
 
-print(BlockLetter.characters('VQH'))
+from block_letter import characters_to_block_letters
+
+print(characters_to_block_letters('VQH'))
